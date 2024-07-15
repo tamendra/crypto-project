@@ -6,4 +6,4 @@ const dataSchema = new mongoose.Schema({
   timestamp: { type: Date, default: Date.now }
 });
 
-export const PriceDataModel = mongoose.model('Data', dataSchema);
+export const PriceDataModel = mongoose.model('CoinPrice', dataSchema);

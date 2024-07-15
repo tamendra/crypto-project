@@ -6,4 +6,4 @@ const errorDataSchema = new mongoose.Schema({
   error: { type: Object, required: true }
 });
 
-export const ErrorDataModel = mongoose.model('ErrorData', errorDataSchema);
+export const ErrorDataModel = mongoose.model('ErrorLog', errorDataSchema);

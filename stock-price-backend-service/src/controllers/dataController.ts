@@ -1,8 +1,6 @@
 import axios from 'axios';
 import { Request, Response } from 'express';
 import { ErrorDataModel, PriceDataModel } from '../models';
-import { CoinDataModel } from '../models/CointModel';
-import { ICoin } from '../interfaces';
 
 export const fetchDataFromCoinGecko = async () => {
   try {
@@ -85,35 +83,35 @@ export const getData = async (req: Request, res: Response) => {
     res.set('Surrogate-Control', 'no-store');
     res.json(data);
   } catch (error) {
-    res.status(500).json({ message: 'Error fetching data' });
+    res.status(500).json({ message: `Error fetching data: ${error}`});
   }
 };
 
-export const getCoinListData = async () => {
-  const options = {
-    method: 'GET',
-    url: 'https://api.coingecko.com/api/v3/coins/list?status=active',
-    headers: { accept: 'application/json' }
-  };
+// export const getCoinListData = async () => {
+//   const options = {
+//     method: 'GET',
+//     url: 'https://api.coingecko.com/api/v3/coins/list?status=active',
+//     headers: { accept: 'application/json' }
+//   };
 
-  try {
-    const response = await axios.request(options);
+//   try {
+//     const response = await axios.request(options);
 
-    await Promise.all(response.data.map(async (coin: ICoin) => {
-      try {
-        if (coin.symbol && coin.name) {
-          const newData = new CoinDataModel({ symbol: coin.symbol, name: coin.name });
-          await newData.save();
-        }
-      } catch (error) {
-        console.error('Error saving coin data:', error);
-        const newErrorData = new ErrorDataModel({ error: JSON.parse(JSON.stringify(error)), symbol: '' });
-        await newErrorData.save();
-      }
-    }));
-  } catch (error: any) {
-    console.error('Error fetching data:', error.message);
-    const newErrorData = new ErrorDataModel({ error: JSON.parse(JSON.stringify(error)), symbol: '' });
-    await newErrorData.save();
-  }
-};
+//     await Promise.all(response.data.map(async (coin: ICoin) => {
+//       try {
+//         if (coin.symbol && coin.name) {
+//           const newData = new CoinDataModel({ symbol: coin.symbol, name: coin.name });
+//           await newData.save();
+//         }
+//       } catch (error) {
+//         console.error('Error saving coin data:', error);
+//         const newErrorData = new ErrorDataModel({ error: JSON.parse(JSON.stringify(error)), symbol: '' });
+//         await newErrorData.save();
+//       }
+//     }));
+//   } catch (error: any) {
+//     console.error('Error fetching data:', error.message);
+//     const newErrorData = new ErrorDataModel({ error: JSON.parse(JSON.stringify(error)), symbol: '' });
+//     await newErrorData.save();
+//   }
+// };

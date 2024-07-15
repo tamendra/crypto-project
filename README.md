@@ -10,8 +10,6 @@ This project is a mini-website to collect and display real-time price data for s
 - [Usage](#usage)
 - [Project Structure](#project-structure)
 - [API Endpoints](#api-endpoints)
-- [Debugging](#debugging)
-- [License](#license)
 
 ## Features
 
@@ -36,33 +34,104 @@ This project is a mini-website to collect and display real-time price data for s
 
 2. **Install dependencies for both frontend and backend:**
 
-# Install backend dependencies
-cd stock-price-backend-service
-npm install
+Install backend dependencies
+
+   ```
+   cd stock-price-backend-service
+   npm install
+   ```
+
+Install frontend dependencies
+
+   ```
+   cd ../stock-price-frontend
+   npm install
+   ```
+
 
 3. **Set up environment variables:**
 
-# Install frontend dependencies
-cd ../stock-price-frontend
-npm install
-
-PORT=3001
-MONGO_URI=mongodb://localhost:27017/stockPriceDB
+   ```
+   PORT=5000
+   MONGO_URI=mongodb://localhost:27017/stock_price_db
+   ```
 
 ## Usage
 
 1. **Start the backend server:**
 
-  cd stock-price-backend-service
-npm run dev
+   ```bash
+   cd stock-price-backend-service
+   npm run dev
+   ```
 
 2. **Start the frontend server:**
-cd ../stock-price-frontend
-npm run dev
+
+   ```
+   cd ../stock-price-frontend
+   npm run dev
+   ```
 
 
 3. **Open browser and navigate to:**
 
-http://localhost:3000
+   http://localhost:3000
+
+## Project Structure
+```
+crypto-project/
+├── stock-price-backend-service/
+│   ├── src/
+│   │   ├── controllers/
+│   │   │   └── dataController.ts
+│   │   ├── models/
+│   │   │   └── PriceData.ts
+│   │   │   └── ErrorModel.ts
+│   │   │   └── index.ts
+│   │   ├── routes/
+│   │   │   └── dataRoutes.ts
+│   │   │   └── index.ts
+│   │   ├── index.ts
+│   │   └── app.ts
+│   ├── .env
+│   ├── .gitignore
+│   ├── package.json
+│   └── tsconfig.json
+├── stock-price-frontend/
+│   ├── src/
+│   │   ├── app/
+│   │   │   └── favicon.ico
+│   │   │   └── gloabls.css
+│   │   │   └── layout.tsx
+│   │   ├── components/
+│   │   │   └── DataTable.tsx
+│   │   ├── pages/
+│   │   │   ├── _app.tsx
+│   │   │   └── index.tsx
+│   │   |   ├── api/
+│   │   │   |   └── [symbol].tsx
+│   │   ├── store/
+│   │   │   ├── dataSlice.ts
+│   │   │   └── store.ts
+│   ├── public/
+│   ├── styles/
+│   ├── .env.local
+│   ├── package.json
+│   └── tsconfig.json
+```
+
+## API Endpoints
+
+**Backend API**
+
+GET `/api/data/:symbol`: Fetch the most recent 20 entries for the specified stock or cryptocurrency symbol.
+
+
+*Example Request*
+```
+GET http://localhost:5000/api/data/BTC
+```
+
+   
 
 
